@@ -464,6 +464,7 @@ function getFormData() {
         softSkills: getValue('softSkills'),
         hobbies: getValue('hobbies'),
         referenceOnRequest: document.getElementById('referenceOnRequest')?.checked || false,
+        militaryPostponedDate: getValue('militaryPostponedDate'),
         experiences: [], education: [], certificates: [], computerSkills: [],
         languages: [], projects: [], publications: [], awards: [],
         memberships: [], volunteers: [], references: []
@@ -617,6 +618,11 @@ function formatBirthDate(value) {
     return `${day}.${month}.${year}`;
 }
 
+function trUpperCase(text) {
+    if (!text) return '';
+    return text.toLocaleUpperCase('tr-TR');
+}
+
 // ============================================
 // PREVIEW GENERATION
 // ============================================
@@ -668,7 +674,7 @@ function renderModernTemplate(data) {
 
     // Header - Modern centered
     html += `<div class="cv-header" style="border-bottom-color: var(--accent-color)">`;
-    if (fullName) html += `<h1 class="cv-name" style="color: var(--accent-color)">${escapeHtml(fullName)}</h1>`;
+    if (fullName) html += `<h1 class="cv-name" style="color: var(--accent-color)">${escapeHtml(trUpperCase(fullName))}</h1>`;
     if (data.title) html += `<p class="cv-title">${escapeHtml(data.title)}</p>`;
     html += `</div>`;
 
@@ -684,7 +690,7 @@ function renderClassicTemplate(data) {
 
     // Header - Classic Left Aligned
     html += `<div class="cv-header" style="text-align: left; border-bottom: 3px double var(--accent-color); padding-bottom: 20px;">`;
-    if (fullName) html += `<h1 class="cv-name" style="font-size: 28px; margin-bottom: 8px;">${escapeHtml(fullName).toUpperCase()}</h1>`;
+    if (fullName) html += `<h1 class="cv-name" style="font-size: 28px; margin-bottom: 8px;">${escapeHtml(trUpperCase(fullName))}</h1>`;
     if (data.title) html += `<p class="cv-title" style="font-style: italic; font-weight: 600; font-size: 14px; color: var(--color-dark-700)">${escapeHtml(data.title)}</p>`;
     html += `</div>`;
 
@@ -699,7 +705,7 @@ function renderMinimalTemplate(data) {
 
     // Header - Ultra minimal
     html += `<div class="cv-header" style="text-align: left; border-bottom: none; margin-bottom: 40px; padding-bottom: 0;">`;
-    if (fullName) html += `<h1 class="cv-name" style="font-size: 32px; letter-spacing: -1px; margin-bottom: 0;">${escapeHtml(fullName)}</h1>`;
+    if (fullName) html += `<h1 class="cv-name" style="font-size: 32px; letter-spacing: -1px; margin-bottom: 0;">${escapeHtml(trUpperCase(fullName))}</h1>`;
     if (data.title) html += `<p class="cv-title" style="color: var(--accent-color); font-weight: 500; font-size: 16px;">${escapeHtml(data.title)}</p>`;
     html += `</div>`;
 
@@ -714,63 +720,14 @@ function renderCreativeTemplate(data) {
 
     // Header - Creative Layout
     html += `<div class="cv-header" style="background: var(--accent-color); color: white; padding: 40px; border-radius: 8px; margin-bottom: 30px; border-bottom: none;">`;
-    if (fullName) html += `<h1 class="cv-name" style="color: white; font-size: 30px; margin-bottom: 5px;">${escapeHtml(fullName)}</h1>`;
+    if (fullName) html += `<h1 class="cv-name" style="color: white; font-size: 30px; margin-bottom: 5px;">${escapeHtml(trUpperCase(fullName))}</h1>`;
     if (data.title) html += `<p class="cv-title" style="color: rgba(255,255,255,0.8); font-size: 14px;">${escapeHtml(data.title)}</p>`;
     html += `</div>`;
 
-    // Two column layout for creative
-    html += `<div class="cv-two-column">`;
+    // Re-use common sections but in a slightly different structure if needed, 
+    // for now we re-enable standard list for better visibility
+    html += renderCommonSections(data);
 
-    // Left Column
-    html += `<div class="cv-col-main">`;
-    if (data.summary) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="border-bottom-color: var(--accent-color)">Hakkımda</h2><p class="cv-summary">${escapeHtml(data.summary)}</p></div>`;
-    }
-    if (data.experiences.length > 0) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="border-bottom-color: var(--accent-color)">Deneyim</h2>`;
-        data.experiences.forEach(exp => {
-            html += `<div class="cv-item">
-                <div class="cv-item-header">
-                    <div><div class="cv-item-title">${escapeHtml(exp.position)}</div><div class="cv-item-subtitle">${escapeHtml(exp.company)}</div></div>
-                    <span class="cv-item-date">${exp.startDate} - ${exp.endDate}</span>
-                </div>
-                ${exp.description ? `<div class="cv-item-description">${formatDescription(exp.description)}</div>` : ''}
-            </div>`;
-        });
-        html += `</div>`;
-    }
-    html += `</div>`;
-
-    // Right Column
-    html += `<div class="cv-col-side">`;
-    const hasContact = data.email || data.phone || data.address || data.city;
-    if (hasContact) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="border-bottom-color: var(--accent-color)">İletişim</h2>`;
-        if (data.email) html += `<div class="cv-contact-item" style="margin-bottom: 5px"><strong>E-posta:</strong> ${escapeHtml(data.email)}</div>`;
-        if (data.phone) html += `<div class="cv-contact-item" style="margin-bottom: 5px"><strong>Tel:</strong> ${escapeHtml(data.phone)}</div>`;
-        html += `</div>`;
-    }
-
-    if (data.education.length > 0) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="border-bottom-color: var(--accent-color)">Eğitim</h2>`;
-        data.education.forEach(edu => {
-            html += `<div class="cv-item">
-                <div class="cv-item-title" style="font-size: 10px">${escapeHtml(edu.school)}</div>
-                <div class="cv-item-subtitle" style="font-size: 9px">${escapeHtml(edu.field)}</div>
-                <div class="cv-item-date" style="font-size: 8px">${edu.startYear} - ${edu.endYear}</div>
-            </div>`;
-        });
-        html += `</div>`;
-    }
-
-    if (data.technicalSkills) {
-        const skills = data.technicalSkills.split(',').map(s => s.trim()).filter(s => s);
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="border-bottom-color: var(--accent-color)">Beceriler</h2>
-            <div class="cv-skills-container">${skills.map(s => `<span class="cv-skill-tag" style="background: var(--accent-color); color: white; border: none;">${escapeHtml(s)}</span>`).join('')}</div></div>`;
-    }
-    html += `</div>`;
-
-    html += `</div>`;
     cvPreview.innerHTML = html;
 }
 
@@ -781,38 +738,48 @@ function renderCommonSections(data, isClassic = false) {
     // İletişim Bilgileri Section
     const hasContact = data.email || data.phone || data.address || data.city || data.linkedin || data.website || data.github;
     if (hasContact) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">İletişim Bilgileri</h2><div class="cv-contact-grid">`;
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">İLETİŞİM BİLGİLERİ</h2><div class="cv-contact-grid">`;
         if (data.email) html += `<div class="cv-contact-row"><span class="cv-contact-label">E-posta:</span><span class="cv-contact-value">${escapeHtml(data.email)}</span></div>`;
         if (data.phone) html += `<div class="cv-contact-row"><span class="cv-contact-label">Telefon:</span><span class="cv-contact-value">${escapeHtml(data.phone)}</span></div>`;
         let addr = [data.address, data.postalCode, data.city].filter(x => x).join(', ');
         if (addr) html += `<div class="cv-contact-row"><span class="cv-contact-label">Adres:</span><span class="cv-contact-value">${escapeHtml(addr)}</span></div>`;
         if (data.linkedin) html += `<div class="cv-contact-row"><span class="cv-contact-label">LinkedIn:</span><span class="cv-contact-value">${escapeHtml(data.linkedin)}</span></div>`;
         if (data.website) html += `<div class="cv-contact-row"><span class="cv-contact-label">Web Sitesi:</span><span class="cv-contact-value">${escapeHtml(data.website)}</span></div>`;
-        if (data.github) html += `<div class="cv-contact-row"><span class="cv-contact-label">GitHub:</span><span class="cv-contact-value">${escapeHtml(data.github)}</span></div>`;
+        if (data.github) {
+            // Ensure no character replacement for GitHub links
+            const githubLink = escapeHtml(data.github);
+            html += `<div class="cv-contact-row"><span class="cv-contact-label">GitHub:</span><span class="cv-contact-value">${githubLink}</span></div>`;
+        }
         html += `</div></div>`;
     }
 
     // Kişisel Bilgiler Section
     const hasPersonal = data.birthDate || data.birthPlace || data.nationality || data.maritalStatus || data.militaryStatus || data.drivingLicense;
     if (hasPersonal) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">Kişisel Bilgiler</h2><div class="cv-contact-grid">`;
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">KİŞİSEL BİLGİLERİ</h2><div class="cv-contact-grid">`;
         if (data.birthDate) html += `<div class="cv-contact-row"><span class="cv-contact-label">Doğum Tarihi:</span><span class="cv-contact-value">${formatBirthDate(data.birthDate)}</span></div>`;
         if (data.birthPlace) html += `<div class="cv-contact-row"><span class="cv-contact-label">Doğum Yeri:</span><span class="cv-contact-value">${escapeHtml(data.birthPlace)}</span></div>`;
         if (data.nationality) html += `<div class="cv-contact-row"><span class="cv-contact-label">Uyruk:</span><span class="cv-contact-value">${escapeHtml(data.nationality)}</span></div>`;
         if (data.maritalStatus) html += `<div class="cv-contact-row"><span class="cv-contact-label">Medeni Durum:</span><span class="cv-contact-value">${escapeHtml(data.maritalStatus)}</span></div>`;
-        if (data.militaryStatus) html += `<div class="cv-contact-row"><span class="cv-contact-label">Askerlik:</span><span class="cv-contact-value">${escapeHtml(data.militaryStatus)}</span></div>`;
+        if (data.militaryStatus) {
+            let statusText = escapeHtml(data.militaryStatus);
+            if (data.militaryStatus === 'Tecilli' && data.militaryPostponedDate) {
+                statusText += ` (Tecil: ${formatBirthDate(data.militaryPostponedDate)})`;
+            }
+            html += `<div class="cv-contact-row"><span class="cv-contact-label">Askerlik:</span><span class="cv-contact-value">${statusText}</span></div>`;
+        }
         if (data.drivingLicense) html += `<div class="cv-contact-row"><span class="cv-contact-label">Ehliyet:</span><span class="cv-contact-value">${escapeHtml(data.drivingLicense)}</span></div>`;
         html += `</div></div>`;
     }
 
     // Profesyonel Özet
     if (data.summary) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">Profesyonel Özet</h2><p class="cv-summary">${escapeHtml(data.summary)}</p></div>`;
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">PROFESYONEL ÖZET</h2><p class="cv-summary">${escapeHtml(data.summary)}</p></div>`;
     }
 
     // İş Deneyimi
     if (data.experiences.length > 0) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">İş Deneyimi</h2>`;
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">İŞ DENEYİMİ</h2>`;
         data.experiences.forEach(exp => {
             html += `<div class="cv-item">
                 <div class="cv-item-header">
@@ -828,7 +795,7 @@ function renderCommonSections(data, isClassic = false) {
 
     // Eğitim
     if (data.education.length > 0) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">Eğitim</h2>`;
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">EĞİTİM</h2>`;
         data.education.forEach(edu => {
             html += `<div class="cv-item">
                 <div class="cv-item-header">
@@ -844,7 +811,7 @@ function renderCommonSections(data, isClassic = false) {
 
     // Sertifikalar
     if (data.certificates.length > 0) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">Sertifikalar</h2>`;
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">SERTİFİKALAR</h2>`;
         data.certificates.forEach(cert => {
             html += `<div class="cv-item">
                 <div class="cv-item-header">
@@ -861,14 +828,43 @@ function renderCommonSections(data, isClassic = false) {
     if (data.technicalSkills) {
         const skills = data.technicalSkills.split(',').map(s => s.trim()).filter(s => s);
         if (skills.length > 0) {
-            html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">Teknik Beceriler</h2>
-                <div class="cv-skills-container">${skills.map(s => `<span class="cv-skill-tag" style="${isClassic ? 'border-color: var(--accent-color); border-radius: 0;' : ''}">${escapeHtml(s)}</span>`).join('')}</div></div>`;
+            html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">TEKNİK BECERİLER</h2>`;
+            // If user typed without commas or just one long string, don't use boxy tags
+            if (skills.length === 1 && !data.technicalSkills.includes(',')) {
+                html += `<div class="cv-summary">${escapeHtml(data.technicalSkills)}</div>`;
+            } else {
+                html += `<div class="cv-skills-container">${skills.map(s => `<span class="cv-skill-tag" style="${isClassic ? 'border-color: var(--accent-color); border-radius: 0; background: transparent; color: inherit; padding: 2px 8px;' : ''}">${escapeHtml(s)}</span>`).join('')}</div>`;
+            }
+            html += `</div>`;
         }
+    }
+
+    // Kişisel Beceriler
+    if (data.softSkills) {
+        const skills = data.softSkills.split(',').map(s => s.trim()).filter(s => s);
+        if (skills.length > 0) {
+            html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">KİŞİSEL BECERİLER</h2>`;
+            if (skills.length === 1 && !data.softSkills.includes(',')) {
+                html += `<div class="cv-summary">${escapeHtml(data.softSkills)}</div>`;
+            } else {
+                html += `<div class="cv-skills-container">${skills.map(s => `<span class="cv-skill-tag" style="${isClassic ? 'border-color: var(--accent-color); border-radius: 0; background: transparent; color: inherit; padding: 2px 8px;' : ''}">${escapeHtml(s)}</span>`).join('')}</div>`;
+            }
+            html += `</div>`;
+        }
+    }
+
+    // Bilgisayar Becerileri
+    if (data.computerSkills.length > 0) {
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">BİLGİSAYAR BECERİLERİ</h2><div class="cv-languages-grid">`;
+        data.computerSkills.forEach(cs => {
+            html += `<div class="cv-language-item"><span class="cv-language-name">${escapeHtml(cs.name)}</span><span class="cv-language-level">${escapeHtml(cs.level)}</span></div>`;
+        });
+        html += `</div></div>`;
     }
 
     // Projeler
     if (data.projects.length > 0) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">Projeler</h2>`;
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">PROJELER</h2>`;
         data.projects.forEach(proj => {
             html += `<div class="cv-item">
                 <div class="cv-item-header">
@@ -883,18 +879,84 @@ function renderCommonSections(data, isClassic = false) {
         html += `</div>`;
     }
 
+    // Yayınlar
+    if (data.publications.length > 0) {
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">YAYINLAR</h2>`;
+        data.publications.forEach(pub => {
+            html += `<div class="cv-item">
+                <div class="cv-item-header">
+                    <div><div class="cv-item-title" style="${isClassic ? 'color: var(--accent-color)' : ''}">${escapeHtml(pub.title)}</div>
+                    <div class="cv-item-subtitle">${escapeHtml(pub.authors)}${pub.venue ? `, ${escapeHtml(pub.venue)}` : ''}</div></div>
+                    <span class="cv-item-date">${pub.date}</span>
+                </div>
+            </div>`;
+        });
+        html += `</div>`;
+    }
+
+    // Ödüller
+    if (data.awards.length > 0) {
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">ÖDÜLLER VE BAŞARILAR</h2>`;
+        data.awards.forEach(award => {
+            html += `<div class="cv-item">
+                <div class="cv-item-header">
+                    <div><div class="cv-item-title" style="${isClassic ? 'color: var(--accent-color)' : ''}">${escapeHtml(award.name)}</div>
+                    <div class="cv-item-subtitle">${escapeHtml(award.issuer)}</div></div>
+                    <span class="cv-item-date">${award.date}</span>
+                </div>
+            </div>`;
+        });
+        html += `</div>`;
+    }
+
+    // Mesleki Üyelikler
+    if (data.memberships.length > 0) {
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">ÜYELİKLER</h2>`;
+        data.memberships.forEach(m => {
+            html += `<div class="cv-item">
+                <div class="cv-item-header">
+                    <div><div class="cv-item-title" style="${isClassic ? 'color: var(--accent-color)' : ''}">${escapeHtml(m.org)}</div>
+                    <div class="cv-item-subtitle">${escapeHtml(m.role)}</div></div>
+                    <span class="cv-item-date">${m.startDate}${m.endDate ? ` - ${m.endDate}` : ''}</span>
+                </div>
+            </div>`;
+        });
+        html += `</div>`;
+    }
+
     // Yabancı Diller
     if (data.languages.length > 0) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">Yabancı Diller</h2><div class="cv-languages-grid">`;
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">YABANCI DİLLER</h2><div class="cv-languages-grid">`;
         data.languages.forEach(lang => {
             html += `<div class="cv-language-item"><span class="cv-language-name">${escapeHtml(lang.name)}</span><span class="cv-language-level">${escapeHtml(lang.level)}</span></div>`;
         });
         html += `</div></div>`;
     }
 
+    // Gönüllü Çalışmalar
+    if (data.volunteers.length > 0) {
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">GÖNÜLLÜ ÇALIŞMALAR</h2>`;
+        data.volunteers.forEach(v => {
+            html += `<div class="cv-item">
+                <div class="cv-item-header">
+                    <div><div class="cv-item-title" style="${isClassic ? 'color: var(--accent-color)' : ''}">${escapeHtml(v.role)}</div>
+                    <div class="cv-item-subtitle">${escapeHtml(v.org)}</div></div>
+                    <span class="cv-item-date">${v.startDate}${v.endDate ? ` - ${v.endDate}` : ''}</span>
+                </div>
+                ${v.description ? `<div class="cv-item-description">${escapeHtml(v.description)}</div>` : ''}
+            </div>`;
+        });
+        html += `</div>`;
+    }
+
+    // İlgi Alanları
+    if (data.hobbies) {
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">İLGİ ALANLARI</h2><p class="cv-hobbies">${escapeHtml(data.hobbies)}</p></div>`;
+    }
+
     // Referanslar
     if (data.references.length > 0 || data.referenceOnRequest) {
-        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">Referanslar</h2>`;
+        html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">REFERANSLAR</h2>`;
         if (data.referenceOnRequest && data.references.length === 0) {
             html += `<p class="cv-reference-note">İstek üzerine sunulabilir.</p>`;
         } else {
@@ -929,7 +991,7 @@ function formatDescription(text) {
     const hasBullets = lines.some(line => line.trim().startsWith('-') || line.trim().startsWith('•'));
     if (hasBullets) {
         const items = lines.filter(l => l.trim()).map(l => l.replace(/^[-•]\s*/, '').trim()).filter(l => l);
-        return `< ul > ${items.map(i => `<li>${escapeHtml(i)}</li>`).join('')}</ul > `;
+        return `<ul>${items.map(i => `<li>${escapeHtml(i)}</li>`).join('')}</ul>`;
     }
     return escapeHtml(text);
 }
@@ -954,11 +1016,11 @@ async function generatePDF() {
     try {
         const opt = {
             margin: [10, 10, 10, 10],
-            filename: `${fullName.replace(/\s+/g, '_')} _CV.pdf`,
+            filename: `${fullName.replace(/\s+/g, '_')}_CV.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2, useCORS: true, letterRendering: true, logging: false },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-            pagebreak: { mode: 'avoid-all', before: '.cv-section' }
+            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
         };
         await html2pdf().set(opt).from(cvPreview).save();
     } catch (error) {
@@ -1037,4 +1099,17 @@ document.addEventListener('DOMContentLoaded', () => {
         currentState.fontFamily = e.target.value;
         updatePreview();
     });
+
+    // Military status conditional field
+    const militaryStatusSelect = document.getElementById('militaryStatus');
+    const militaryPostponedGroup = document.getElementById('militaryPostponedGroup');
+    if (militaryStatusSelect && militaryPostponedGroup) {
+        militaryStatusSelect.addEventListener('change', () => {
+            if (militaryStatusSelect.value === 'Tecilli') {
+                militaryPostponedGroup.style.display = 'flex';
+            } else {
+                militaryPostponedGroup.style.display = 'none';
+            }
+        });
+    }
 });
