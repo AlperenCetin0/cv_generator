@@ -120,6 +120,37 @@ body {
 }
 
 /* Main Content */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.lang-switch {
+    display: flex;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-light-400);
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all var(--transition-fast);
+}
+
+.lang-btn.active {
+    background: var(--color-white);
+    color: var(--color-black);
+}
+
 .main-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -237,6 +268,111 @@ body {
 
 .color-preset:hover {
     transform: scale(1.2);
+}
+
+/* Smart Tools */
+.control-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+}
+
+.ats-badge {
+    padding: 4px 10px;
+    background: var(--color-light-100);
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--color-dark-800);
+    border: 1px solid var(--color-light-200);
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+}
+
+.tool-btn {
+    background: var(--color-white);
+    border: 1px solid var(--color-light-200);
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.tool-btn:hover {
+    border-color: var(--color-black);
+    transform: translateY(-1px);
+}
+
+/* Photo Upload */
+.photo-upload-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+    padding: var(--space-4);
+    background: var(--color-light-50);
+    border-radius: var(--radius-sm);
+    border: 1px dashed var(--color-light-300);
+}
+
+.photo-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    background: var(--color-light-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid var(--color-white);
+    box-shadow: var(--shadow-sm);
+    color: var(--color-gray-400);
+    font-size: 10px;
+    text-align: center;
+    padding: 5px;
+}
+
+.photo-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid var(--color-light-400);
+    background: var(--color-white);
+}
+
+.photo-btn:hover {
+    background: var(--color-light-50);
+}
+
+.photo-btn.danger {
+    color: var(--color-dark-800);
+    border-color: #fee2e2;
+    background: #fef2f2;
+}
+
+.photo-btn.danger:hover {
+    background: #fee2e2;
 }
 
 /* Form Panel */
@@ -389,6 +525,33 @@ textarea {
     border: 1px solid var(--color-light-100);
     position: relative;
     animation: fadeIn 0.2s ease;
+    cursor: default;
+}
+
+.dynamic-item.dragging {
+    opacity: 0.5;
+    background: var(--color-white);
+    border: 1px dashed var(--accent-color);
+}
+
+.drag-handle {
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 30px;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-400);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.dynamic-item:hover .drag-handle {
+    opacity: 1;
 }
 
 @keyframes fadeIn {
@@ -511,6 +674,52 @@ textarea {
     color: var(--color-gray-400);
     text-align: center;
     font-size: var(--font-size-sm);
+}
+
+/* CV Preview Photo */
+.cv-photo-container {
+    margin-bottom: 20px;
+}
+
+.cv-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+    display: block;
+    border: 4px solid var(--accent-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.classic .cv-photo {
+    border-radius: 4px;
+    margin: 0;
+    width: 100px;
+    height: 110px;
+}
+
+.creative .cv-photo {
+    border-radius: 12px;
+    width: 140px;
+    height: 140px;
+    margin-bottom: 0;
+}
+
+.minimal .cv-photo {
+    width: 90px;
+    height: 90px;
+    border: none;
+    margin: 0 0 20px 0;
+}
+
+/* Icons */
+.cv-icon {
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    margin-right: 6px;
+    fill: var(--accent-color);
 }
 
 /* CV Content Styles - Professional */

@@ -23,7 +23,12 @@
                 <div class="logo">
                     <h1>CV Oluşturucu</h1>
                 </div>
-                <p class="tagline">Profesyonel Özgeçmiş Hazırlama Aracı</p>
+                <div class="header-actions">
+                    <div class="lang-switch">
+                        <button type="button" class="lang-btn active" data-lang="tr">TR</button>
+                        <button type="button" class="lang-btn" data-lang="en">EN</button>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -33,6 +38,22 @@
                 <!-- Template & Customization Controls -->
                 <section class="controls-section">
                     <div class="control-group">
+                        <div class="control-header">
+                            <label>Smart Tools</label>
+                            <span id="atsScore" class="ats-badge">ATS Score: --</span>
+                        </div>
+                        <div class="tools-grid">
+                            <button type="button" id="exportJson" class="tool-btn">
+                                <span>Dışa Aktar (JSON)</span>
+                            </button>
+                            <button type="button" id="importJsonTrigger" class="tool-btn">
+                                <span>İçe Aktar (JSON)</span>
+                            </button>
+                            <input type="file" id="importJson" accept=".json" style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="control-group" style="margin-top: var(--space-4);">
                         <label>Şablon Seçimi</label>
                         <div class="template-grid">
                             <button type="button" class="template-btn active" data-template="modern">
@@ -81,6 +102,16 @@
                     <section class="form-section">
                         <div class="section-header">
                             <h2>Kişisel Bilgiler</h2>
+                        </div>
+                        <div class="photo-upload-wrapper">
+                            <div class="photo-preview" id="photoPreview">
+                                <span>Fotoğraf Ekle</span>
+                            </div>
+                            <input type="file" id="profilePhoto" accept="image/*" style="display: none;">
+                            <button type="button" class="photo-btn"
+                                onclick="document.getElementById('profilePhoto').click()">Resim Seç</button>
+                            <button type="button" class="photo-btn danger" id="removePhoto"
+                                style="display: none;">Kaldır</button>
                         </div>
                         <div class="form-grid">
                             <div class="form-group">
