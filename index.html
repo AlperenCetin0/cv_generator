@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Oluşturucu | Profesyonel Özgeçmiş</title>
+    <meta name="description" content="Profesyonel CV oluşturun ve PDF olarak indirin. Türkçe, ücretsiz, hızlı.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>CV Oluşturucu</h1>
+                </div>
+                <p class="tagline">Profesyonel Özgeçmiş Hazırlama Aracı</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Form Panel -->
+            <aside class="form-panel">
+                <!-- Template & Customization Controls -->
+                <section class="controls-section">
+                    <div class="control-group">
+                        <label>Şablon Seçimi</label>
+                        <div class="template-grid">
+                            <button type="button" class="template-btn active" data-template="modern">
+                                <span class="template-name">Modern</span>
+                            </button>
+                            <button type="button" class="template-btn" data-template="classic">
+                                <span class="template-name">Klasik</span>
+                            </button>
+                            <button type="button" class="template-btn" data-template="creative">
+                                <span class="template-name">Yaratıcı</span>
+                            </button>
+                            <button type="button" class="template-btn" data-template="minimal">
+                                <span class="template-name">Minimal</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="customization-grid">
+                        <div class="control-group">
+                            <label for="themeColor">Tema Rengi</label>
+                            <div class="color-picker-wrapper">
+                                <input type="color" id="themeColor" value="#000000">
+                                <div class="color-presets">
+                                    <span class="color-preset" style="background: #000000" data-color="#000000"></span>
+                                    <span class="color-preset" style="background: #2563eb" data-color="#2563eb"></span>
+                                    <span class="color-preset" style="background: #059669" data-color="#059669"></span>
+                                    <span class="color-preset" style="background: #7c3aed" data-color="#7c3aed"></span>
+                                    <span class="color-preset" style="background: #dc2626" data-color="#dc2626"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="fontFamily">Yazı Tipi</label>
+                            <select id="fontFamily">
+                                <option value="'Inter', sans-serif">Inter (Modern)</option>
+                                <option value="'Playfair Display', serif">Playfair (Klasik)</option>
+                                <option value="'Poppins', sans-serif">Poppins (Yaratıcı)</option>
+                                <option value="'Roboto Mono', monospace">Roboto Mono (Tekknik)</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <form id="cvForm">
+                    <!-- Kişisel Bilgiler -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Kişisel Bilgiler</h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="firstName">Ad <span class="required">*</span></label>
+                                <input type="text" id="firstName" placeholder="Adınız" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Soyad <span class="required">*</span></label>
+                                <input type="text" id="lastName" placeholder="Soyadınız" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="title">Meslek / Ünvan</label>
+                                <input type="text" id="title" placeholder="Örn: Yazılım Mühendisi">
+                            </div>
+                            <div class="form-group">
+                                <label for="birthDate">Doğum Tarihi</label>
+                                <input type="date" id="birthDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="birthPlace">Doğum Yeri</label>
+                                <input type="text" id="birthPlace" placeholder="Örn: İstanbul">
+                            </div>
+                            <div class="form-group">
+                                <label for="nationality">Uyruk</label>
+                                <input type="text" id="nationality" placeholder="Örn: T.C." value="T.C.">
+                            </div>
+                            <div class="form-group">
+                                <label for="maritalStatus">Medeni Durum</label>
+                                <select id="maritalStatus">
+                                    <option value="">Seçiniz</option>
+                                    <option value="Bekar">Bekar</option>
+                                    <option value="Evli">Evli</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="militaryStatus">Askerlik Durumu</label>
+                                <select id="militaryStatus">
+                                    <option value="">Seçiniz</option>
+                                    <option value="Tamamlandı">Tamamlandı</option>
+                                    <option value="Muaf">Muaf</option>
+                                    <option value="Tecilli">Tecilli</option>
+                                    <option value="Yapılmadı">Yapılmadı</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="drivingLicense">Ehliyet</label>
+                                <input type="text" id="drivingLicense" placeholder="Örn: B Sınıfı">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- İletişim Bilgileri -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>İletişim Bilgileri</h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="email">E-posta Adresi <span class="required">*</span></label>
+                                <input type="email" id="email" placeholder="ornek@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Cep Telefonu <span class="required">*</span></label>
+                                <input type="tel" id="phone" placeholder="+90 5XX XXX XX XX" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="address">Adres</label>
+                                <input type="text" id="address" placeholder="Mahalle, Cadde, No, İlçe">
+                            </div>
+                            <div class="form-group">
+                                <label for="city">Şehir</label>
+                                <input type="text" id="city" placeholder="Örn: İstanbul">
+                            </div>
+                            <div class="form-group">
+                                <label for="postalCode">Posta Kodu</label>
+                                <input type="text" id="postalCode" placeholder="Örn: 34000">
+                            </div>
+                            <div class="form-group">
+                                <label for="linkedin">LinkedIn Profili</label>
+                                <input type="url" id="linkedin" placeholder="linkedin.com/in/kullaniciadi">
+                            </div>
+                            <div class="form-group">
+                                <label for="website">Kişisel Web Sitesi</label>
+                                <input type="url" id="website" placeholder="www.ornek.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="github">GitHub Profili</label>
+                                <input type="url" id="github" placeholder="github.com/kullaniciadi">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Profesyonel Özet -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Profesyonel Özet</h2>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="summary">Kariyer Hedefi / Özet</label>
+                            <textarea id="summary" rows="5"
+                                placeholder="Kariyer hedeflerinizi, güçlü yönlerinizi ve profesyonel deneyiminizin kısa bir özetini yazın. Bu bölüm işverenlerin sizi tanıması için kritik öneme sahiptir."></textarea>
+                        </div>
+                    </section>
+
+                    <!-- İş Deneyimi -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>İş Deneyimi</h2>
+                            <button type="button" class="add-btn" onclick="addExperience()">+ Deneyim Ekle</button>
+                        </div>
+                        <div id="experienceContainer" class="dynamic-container"></div>
+                    </section>
+
+                    <!-- Eğitim Bilgileri -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Eğitim Bilgileri</h2>
+                            <button type="button" class="add-btn" onclick="addEducation()">+ Eğitim Ekle</button>
+                        </div>
+                        <div id="educationContainer" class="dynamic-container"></div>
+                    </section>
+
+                    <!-- Sertifikalar ve Eğitimler -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Sertifikalar ve Kurslar</h2>
+                            <button type="button" class="add-btn" onclick="addCertificate()">+ Sertifika Ekle</button>
+                        </div>
+                        <div id="certificateContainer" class="dynamic-container"></div>
+                    </section>
+
+                    <!-- Teknik Yetenekler -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Teknik Yetenekler</h2>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="technicalSkills">Teknik Beceriler</label>
+                            <textarea id="technicalSkills" rows="3"
+                                placeholder="Programlama dilleri, yazılımlar, araçlar (virgülle ayırın)"></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="softSkills">Kişisel Beceriler</label>
+                            <textarea id="softSkills" rows="2"
+                                placeholder="İletişim, liderlik, problem çözme, takım çalışması (virgülle ayırın)"></textarea>
+                        </div>
+                    </section>
+
+                    <!-- Bilgisayar Becerileri -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Bilgisayar Becerileri</h2>
+                            <button type="button" class="add-btn" onclick="addComputerSkill()">+ Beceri Ekle</button>
+                        </div>
+                        <div id="computerSkillContainer" class="dynamic-container"></div>
+                    </section>
+
+                    <!-- Yabancı Diller -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Yabancı Diller</h2>
+                            <button type="button" class="add-btn" onclick="addLanguage()">+ Dil Ekle</button>
+                        </div>
+                        <div id="languageContainer" class="dynamic-container"></div>
+                    </section>
+
+                    <!-- Projeler -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Projeler</h2>
+                            <button type="button" class="add-btn" onclick="addProject()">+ Proje Ekle</button>
+                        </div>
+                        <div id="projectContainer" class="dynamic-container"></div>
+                    </section>
+
+                    <!-- Yayınlar -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Yayınlar ve Araştırmalar</h2>
+                            <button type="button" class="add-btn" onclick="addPublication()">+ Yayın Ekle</button>
+                        </div>
+                        <div id="publicationContainer" class="dynamic-container"></div>
+                    </section>
+
+                    <!-- Ödüller ve Başarılar -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Ödüller ve Başarılar</h2>
+                            <button type="button" class="add-btn" onclick="addAward()">+ Ödül Ekle</button>
+                        </div>
+                        <div id="awardContainer" class="dynamic-container"></div>
+                    </section>
+
+                    <!-- Üyelikler -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Mesleki Üyelikler</h2>
+                            <button type="button" class="add-btn" onclick="addMembership()">+ Üyelik Ekle</button>
+                        </div>
+                        <div id="membershipContainer" class="dynamic-container"></div>
+                    </section>
+
+                    <!-- Gönüllü Deneyim -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Gönüllü Çalışmalar</h2>
+                            <button type="button" class="add-btn" onclick="addVolunteer()">+ Deneyim Ekle</button>
+                        </div>
+                        <div id="volunteerContainer" class="dynamic-container"></div>
+                    </section>
+
+                    <!-- Hobiler ve İlgi Alanları -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Hobiler ve İlgi Alanları</h2>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="hobbies">İlgi Alanları</label>
+                            <textarea id="hobbies" rows="2"
+                                placeholder="Hobiler, ilgi alanları (virgülle ayırın)"></textarea>
+                        </div>
+                    </section>
+
+                    <!-- Referanslar -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Referanslar</h2>
+                            <button type="button" class="add-btn" onclick="addReference()">+ Referans Ekle</button>
+                        </div>
+                        <div id="referenceContainer" class="dynamic-container"></div>
+                        <div class="form-group full-width" style="margin-top: 16px;">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="referenceOnRequest">
+                                <span>"İstek üzerine sunulabilir" ibaresini göster</span>
+                            </label>
+                        </div>
+                    </section>
+                </form>
+            </aside>
+
+            <!-- Preview Panel -->
+            <section class="preview-panel">
+                <div class="preview-header">
+                    <h2>Önizleme</h2>
+                    <button type="button" id="downloadPdf" class="download-btn">
+                        PDF Olarak İndir
+                    </button>
+                </div>
+                <div class="preview-container">
+                    <div id="cvPreview" class="cv-preview">
+                        <div class="cv-placeholder">
+                            <p>Bilgilerinizi girerek CV'nizi oluşturmaya başlayın</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>CV Oluşturucu | Profesyonel Özgeçmiş Hazırlama Aracı</p>
+        </footer>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
