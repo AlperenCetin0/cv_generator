@@ -205,7 +205,7 @@ function addEducation() {
                     <input type="number" class="edu-end" placeholder="2019" min="1950" max="2030">
                 </div>
                 <div class="form-group">
-                    <label>Not Ortalaması (GPA)</label>
+                    <label>Okul Ortalaması</label>
                     <input type="text" class="edu-gpa" placeholder="3.50 / 4.00">
                 </div>
             </div>
@@ -937,12 +937,12 @@ function renderModernTemplate(data) {
 
     // Header - Modern
     html += `<div class="cv-header modern-header" style="border-bottom-color: var(--accent-color)">`;
-    
+
     // Photo in corner for modern
     if (currentState.profilePhoto) {
         html += `<div class="cv-photo-container"><img src="${currentState.profilePhoto}" class="cv-photo" alt="Profile"></div>`;
     }
-    
+
     html += `<div class="cv-header-info">`;
     if (fullName) html += `<h1 class="cv-name" style="color: var(--accent-color)">${escapeHtml(trUpperCase(fullName))}</h1>`;
     if (data.title) html += `<p class="cv-title">${escapeHtml(data.title)}</p>`;
@@ -960,12 +960,12 @@ function renderClassicTemplate(data) {
 
     // Header - Classic
     html += `<div class="cv-header classic-header" style="text-align: left; border-bottom: 3px double var(--accent-color); padding-bottom: 20px;">`;
-    
+
     // Photo in corner for classic
     if (currentState.profilePhoto) {
         html += `<div class="cv-photo-container"><img src="${currentState.profilePhoto}" class="cv-photo" alt="Profile"></div>`;
     }
-    
+
     html += `<div class="cv-header-info">`;
     if (fullName) html += `<h1 class="cv-name" style="font-size: 28px; margin-bottom: 8px;">${escapeHtml(trUpperCase(fullName))}</h1>`;
     if (data.title) html += `<p class="cv-title" style="font-style: italic; font-weight: 600; font-size: 14px; color: var(--color-dark-700)">${escapeHtml(data.title)}</p>`;
@@ -982,12 +982,12 @@ function renderMinimalTemplate(data) {
 
     // Header - Minimal
     html += `<div class="cv-header minimal-header" style="text-align: left; border-bottom: none; margin-bottom: 40px; padding-bottom: 0;">`;
-    
+
     // Photo for minimal
     if (currentState.profilePhoto) {
         html += `<div class="cv-photo-container"><img src="${currentState.profilePhoto}" class="cv-photo" alt="Profile"></div>`;
     }
-    
+
     html += `<div class="cv-header-info">`;
     if (fullName) html += `<h1 class="cv-name" style="font-size: 32px; letter-spacing: -1px; margin-bottom: 0;">${escapeHtml(trUpperCase(fullName))}</h1>`;
     if (data.title) html += `<p class="cv-title" style="color: var(--accent-color); font-weight: 500; font-size: 16px;">${escapeHtml(data.title)}</p>`;
@@ -1004,12 +1004,12 @@ function renderCreativeTemplate(data) {
 
     // Creative Layout Header
     html += `<div class="cv-header creative-header" style="background: var(--accent-color); color: white; padding: 40px; border-radius: 8px; margin-bottom: 30px; border-bottom: none;">`;
-    
+
     // Photo inside header for creative
     if (currentState.profilePhoto) {
         html += `<div class="cv-photo-container"><img src="${currentState.profilePhoto}" class="cv-photo" alt="Profile"></div>`;
     }
-    
+
     html += `<div class="cv-header-info">`;
     if (fullName) html += `<h1 class="cv-name" style="color: white; font-size: 30px; margin-bottom: 5px;">${escapeHtml(trUpperCase(fullName))}</h1>`;
     if (data.title) html += `<p class="cv-title" style="color: rgba(255,255,255,0.8); font-size: 14px;">${escapeHtml(data.title)}</p>`;
@@ -1103,7 +1103,7 @@ function renderCommonSections(data, isClassic = false) {
                     <div class="cv-item-subtitle">${escapeHtml(edu.field)}${edu.degree ? ` - ${escapeHtml(edu.degree)}` : ''}${edu.location ? `, ${escapeHtml(edu.location)}` : ''}</div></div>
                     <span class="cv-item-date">${edu.startYear}${edu.endYear ? ` - ${edu.endYear}` : ''}</span>
                 </div>
-                ${edu.gpa ? `<div class="cv-item-description">GPA: ${escapeHtml(edu.gpa)}</div>` : ''}
+                ${edu.gpa ? `<div class="cv-item-description">Okul Ortalaması: ${escapeHtml(edu.gpa)}</div>` : ''}
             </div>`;
         });
         html += `</div>`;
@@ -1124,17 +1124,68 @@ function renderCommonSections(data, isClassic = false) {
         html += `</div>`;
     }
 
-    // Skills
+    // Skills - Categorized or Simple
     if (data.technicalSkills) {
-        const skills = data.technicalSkills.split(',').map(s => s.trim()).filter(s => s);
-        if (skills.length > 0) {
-            html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">${t.technicalSkills}</h2>`;
-            if (skills.length === 1 && !data.technicalSkills.includes(',')) {
-                html += `<div class="cv-summary">${escapeHtml(data.technicalSkills)}</div>`;
-            } else {
-                html += `<div class="cv-skills-container">${skills.map(s => `<span class="cv-skill-tag" style="${isClassic ? 'border-color: var(--accent-color); border-radius: 0; background: transparent; color: inherit; padding: 2px 8px;' : ''}">${escapeHtml(s)}</span>`).join('')}</div>`;
+        const skillsText = data.technicalSkills.trim();
+
+        // Check if it's categorized format (contains lines ending with ':')
+        const isCategorized = skillsText.includes(':') && skillsText.split('\n').some(line => line.trim().endsWith(':'));
+
+        if (isCategorized) {
+            // Parse categorized skills
+            const categories = [];
+            const lines = skillsText.split('\n');
+            let currentCategory = null;
+
+            lines.forEach(line => {
+                const trimmedLine = line.trim();
+                if (!trimmedLine) return; // Skip empty lines
+
+                if (trimmedLine.endsWith(':')) {
+                    // This is a category header
+                    if (currentCategory && currentCategory.skills.length > 0) {
+                        categories.push(currentCategory);
+                    }
+                    currentCategory = {
+                        title: trimmedLine.slice(0, -1).trim(),
+                        skills: []
+                    };
+                } else if (currentCategory) {
+                    // This is a skill line under current category
+                    const skillsInLine = trimmedLine.split(',').map(s => s.trim()).filter(s => s);
+                    currentCategory.skills.push(...skillsInLine);
+                }
+            });
+
+            // Add the last category
+            if (currentCategory && currentCategory.skills.length > 0) {
+                categories.push(currentCategory);
             }
-            html += `</div>`;
+
+            // Render categorized skills
+            if (categories.length > 0) {
+                html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">${t.technicalSkills}</h2>`;
+                categories.forEach(category => {
+                    html += `<div class="cv-skill-category">`;
+                    html += `<div class="cv-skill-category-title">${escapeHtml(category.title)}</div>`;
+                    html += `<div class="cv-skill-category-content">`;
+                    html += category.skills.map(s => `<span class="cv-skill-tag" style="${isClassic ? 'border-color: var(--accent-color); border-radius: 0; background: transparent; color: inherit; padding: 2px 8px;' : ''}">${escapeHtml(s)}</span>`).join('');
+                    html += `</div></div>`;
+                });
+                html += `</div>`;
+            }
+        } else {
+            // Original comma-separated format
+            const skills = skillsText.split(',').map(s => s.trim()).filter(s => s);
+            if (skills.length > 0) {
+                html += `<div class="cv-section"><h2 class="cv-section-title" style="${sectionTitleStyle}">${t.technicalSkills}</h2>`;
+                if (skills.length === 1 && !skillsText.includes(',')) {
+                    html += `<div class="cv-summary">${escapeHtml(skillsText)}</div>`;
+                } else {
+                    html += `<div class="cv-skills-container">${skills.map(s => `<span class="cv-skill-tag" style="${isClassic ? 'border-color: var(--accent-color); border-radius: 0; background: transparent; color: inherit; padding: 2px 8px;' : ''}">${escapeHtml(s)}</span>`).join('')}</div>`;
+                }
+                html += `</div>`;
+            }
         }
     }
 
