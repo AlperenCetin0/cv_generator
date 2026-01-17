@@ -16,6 +16,7 @@
 @import url('./components/buttons.css');
 @import url('./components/controls.css');
 @import url('./components/dynamic-items.css');
+@import url('./components/toast.css');
 
 /* Preview */
 @import url('./preview/cv-preview.css');

@@ -4,6 +4,8 @@
 
 import { currentState } from '../config/state.js';
 import { debounce } from '../utils/helpers.js';
+import { initTheme, toggleTheme } from '../utils/themeToggle.js';
+import { showSuccess } from '../utils/toast.js';
 import {
     form,
     downloadBtn,
@@ -68,6 +70,15 @@ export function attachInputListeners() {
 }
 
 export function initEventListeners() {
+    // Initialize theme
+    initTheme();
+
+    // Theme toggle button
+    const themeToggleBtn = document.getElementById('themeToggle');
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', toggleTheme);
+    }
+
     // Load saved data
     loadFromLocalStorage();
 

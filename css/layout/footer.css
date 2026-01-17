@@ -1,13 +1,14 @@
 /* ============================================
-   FOOTER STYLES
+   FOOTER - Clean
    ============================================ */
 
 .footer {
-    background: var(--color-black);
-    color: var(--color-gray-400);
+    background: var(--bg-secondary);
+    color: var(--text-tertiary);
     text-align: center;
     padding: var(--space-4);
     margin-top: auto;
+    border-top: 1px solid var(--border-color);
 }
 
 .footer p {

@@ -1,18 +1,19 @@
 /* ============================================
-   CONTROLS SECTION STYLES
+   CONTROLS SECTION - Clean Design
    ============================================ */
 
 .controls-section {
-    background: var(--color-white);
-    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
     padding: var(--space-5);
     margin-bottom: var(--space-5);
     box-shadow: var(--shadow-sm);
-    border: 1px solid var(--color-light-100);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-base);
 }
 
 .control-group {
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-5);
 }
 
 .control-group:last-child {
@@ -21,14 +22,15 @@
 
 .control-group label {
     display: block;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
     font-weight: 600;
-    color: var(--color-black);
-    margin-bottom: var(--space-2);
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-3);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
+/* Template Grid */
 .template-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -36,34 +38,37 @@
 }
 
 .template-btn {
-    background: var(--color-light-50);
-    border: 1px solid var(--color-light-200);
-    padding: var(--space-3);
-    border-radius: var(--radius-sm);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: all var(--transition-base);
+    transition: all var(--transition-fast);
     text-align: center;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
 }
 
 .template-btn:hover {
-    border-color: var(--color-black);
-    background: var(--color-white);
+    border-color: var(--accent-color);
+    color: var(--text-primary);
 }
 
 .template-btn.active {
-    background: var(--color-black);
-    color: var(--color-white);
-    border-color: var(--color-black);
-    box-shadow: var(--shadow-md);
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
 }
 
+/* Customization Grid */
 .customization-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-4);
-    margin-top: var(--space-4);
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--color-light-100);
+    margin-top: var(--space-5);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border-color);
 }
 
 .color-picker-wrapper {
@@ -76,8 +81,8 @@
     width: 40px;
     height: 40px;
     padding: 0;
-    border: none;
-    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
     cursor: pointer;
     overflow: hidden;
 }
@@ -88,43 +93,43 @@
 
 #themeColor::-webkit-color-swatch {
     border: none;
-    border-radius: 50%;
+    border-radius: var(--radius-sm);
 }
 
 .color-presets {
     display: flex;
-    gap: var(--space-1);
+    gap: var(--space-2);
 }
 
 .color-preset {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-full);
     cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    transition: transform var(--transition-fast);
+    border: 2px solid transparent;
+    transition: all var(--transition-fast);
 }
 
 .color-preset:hover {
-    transform: scale(1.2);
+    transform: scale(1.15);
+    border-color: var(--text-primary);
 }
 
-/* Smart Tools */
+/* ATS Badge */
 .control-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-3);
 }
 
 .ats-badge {
     padding: 4px 10px;
-    background: var(--color-light-100);
-    border-radius: 20px;
-    font-size: 10px;
+    background: var(--success-light);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
     font-weight: 700;
-    color: var(--color-dark-800);
-    border: 1px solid var(--color-light-200);
+    color: var(--success);
 }
 
 .tools-grid {

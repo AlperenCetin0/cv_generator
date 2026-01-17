@@ -1,5 +1,5 @@
 /* ============================================
-   DYNAMIC ITEMS STYLES
+   DYNAMIC ITEMS - Clean Style
    ============================================ */
 
 .dynamic-container {
@@ -9,35 +9,40 @@
 }
 
 .dynamic-item {
-    background: var(--color-light-50);
-    border-radius: var(--radius-sm);
-    padding: var(--space-4);
-    border: 1px solid var(--color-light-100);
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    border: 1px solid var(--border-color);
     position: relative;
     animation: fadeIn 0.2s ease;
     cursor: default;
+    transition: all var(--transition-fast);
+}
+
+.dynamic-item:hover {
+    border-color: var(--border-color-strong);
 }
 
 .dynamic-item.dragging {
     opacity: 0.5;
-    background: var(--color-white);
     border: 1px dashed var(--accent-color);
 }
 
 .drag-handle {
     position: absolute;
-    left: -12px;
+    left: -8px;
     top: 50%;
     transform: translateY(-50%);
-    width: 20px;
-    height: 30px;
+    width: 16px;
+    height: 28px;
     cursor: grab;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-gray-400);
+    color: var(--text-tertiary);
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity var(--transition-fast);
+    font-size: var(--font-size-sm);
 }
 
 .dynamic-item:hover .drag-handle {
@@ -47,9 +52,11 @@
 @keyframes fadeIn {
     from {
         opacity: 0;
+        transform: translateY(-8px);
     }
 
     to {
         opacity: 1;
+        transform: translateY(0);
     }
 }
