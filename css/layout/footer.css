@@ -1,0 +1,15 @@
+/* ============================================
+   FOOTER STYLES
+   ============================================ */
+
+.footer {
+    background: var(--color-black);
+    color: var(--color-gray-400);
+    text-align: center;
+    padding: var(--space-4);
+    margin-top: auto;
+}
+
+.footer p {
+    font-size: var(--font-size-xs);
+}

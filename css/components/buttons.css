@@ -1,0 +1,107 @@
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+
+.add-btn {
+    background: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.add-btn:hover {
+    background: var(--color-dark-700);
+}
+
+.download-btn {
+    background: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.download-btn:hover {
+    background: var(--color-dark-700);
+}
+
+.download-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.remove-btn {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    background: var(--color-dark-800);
+    color: var(--color-white);
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: var(--font-size-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition-fast);
+}
+
+.remove-btn:hover {
+    background: var(--color-black);
+}
+
+.tool-btn {
+    background: var(--color-white);
+    border: 1px solid var(--color-light-200);
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.tool-btn:hover {
+    border-color: var(--color-black);
+    transform: translateY(-1px);
+}
+
+.photo-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid var(--color-light-400);
+    background: var(--color-white);
+}
+
+.photo-btn:hover {
+    background: var(--color-light-50);
+}
+
+.photo-btn.danger {
+    color: var(--color-dark-800);
+    border-color: #fee2e2;
+    background: #fef2f2;
+}
+
+.photo-btn.danger:hover {
+    background: #fee2e2;
+}

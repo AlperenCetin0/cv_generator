@@ -1,0 +1,61 @@
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1200px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .form-panel {
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    .preview-panel {
+        position: relative;
+        top: 0;
+    }
+
+    .preview-container {
+        max-height: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+
+    .main-content {
+        padding: var(--space-4);
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group {
+        grid-column: 1 / -1;
+    }
+
+    .cv-preview {
+        padding: 24px;
+    }
+
+    .cv-contact {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .cv-references-grid,
+    .cv-languages-grid,
+    .cv-computer-skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cv-contact-grid {
+        grid-template-columns: 1fr;
+    }
+}

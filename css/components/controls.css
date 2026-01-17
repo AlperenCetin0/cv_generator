@@ -1,0 +1,134 @@
+/* ============================================
+   CONTROLS SECTION STYLES
+   ============================================ */
+
+.controls-section {
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin-bottom: var(--space-5);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-light-100);
+}
+
+.control-group {
+    margin-bottom: var(--space-4);
+}
+
+.control-group:last-child {
+    margin-bottom: 0;
+}
+
+.control-group label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-black);
+    margin-bottom: var(--space-2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+}
+
+.template-btn {
+    background: var(--color-light-50);
+    border: 1px solid var(--color-light-200);
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-align: center;
+}
+
+.template-btn:hover {
+    border-color: var(--color-black);
+    background: var(--color-white);
+}
+
+.template-btn.active {
+    background: var(--color-black);
+    color: var(--color-white);
+    border-color: var(--color-black);
+    box-shadow: var(--shadow-md);
+}
+
+.customization-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-light-100);
+}
+
+.color-picker-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+#themeColor {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+#themeColor::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+#themeColor::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+.color-presets {
+    display: flex;
+    gap: var(--space-1);
+}
+
+.color-preset {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: transform var(--transition-fast);
+}
+
+.color-preset:hover {
+    transform: scale(1.2);
+}
+
+/* Smart Tools */
+.control-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+}
+
+.ats-badge {
+    padding: 4px 10px;
+    background: var(--color-light-100);
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--color-dark-800);
+    border: 1px solid var(--color-light-200);
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+}

@@ -1,0 +1,26 @@
+/* ============================================
+   CV PREVIEW BASE STYLES
+   ============================================ */
+
+.cv-preview {
+    background: var(--color-white);
+    border-radius: var(--radius-sm);
+    padding: 32px 36px;
+    min-height: 842px;
+    /* A4 ratio */
+    box-shadow: var(--shadow-md);
+    font-size: 10px;
+    line-height: 1.4;
+    color: var(--color-black);
+}
+
+.cv-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    color: var(--color-gray-400);
+    text-align: center;
+    font-size: var(--font-size-sm);
+}

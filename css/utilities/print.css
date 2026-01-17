@@ -1,0 +1,35 @@
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+
+    .header,
+    .footer,
+    .form-panel,
+    .preview-header {
+        display: none !important;
+    }
+
+    .preview-panel {
+        position: static;
+    }
+
+    .preview-container {
+        background: none;
+        padding: 0;
+        box-shadow: none;
+        max-height: none;
+    }
+
+    .cv-preview {
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .cv-icon {
+        display: inline-block !important;
+        visibility: visible !important;
+    }
+}

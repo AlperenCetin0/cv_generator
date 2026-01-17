@@ -1,0 +1,55 @@
+/* ============================================
+   DYNAMIC ITEMS STYLES
+   ============================================ */
+
+.dynamic-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.dynamic-item {
+    background: var(--color-light-50);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+    border: 1px solid var(--color-light-100);
+    position: relative;
+    animation: fadeIn 0.2s ease;
+    cursor: default;
+}
+
+.dynamic-item.dragging {
+    opacity: 0.5;
+    background: var(--color-white);
+    border: 1px dashed var(--accent-color);
+}
+
+.drag-handle {
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 30px;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-400);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.dynamic-item:hover .drag-handle {
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
